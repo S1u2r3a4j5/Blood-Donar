@@ -1,0 +1,169 @@
+body {
+    background-color: #f3f4f6;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #e63946;
+}
+
+.navbar-brand,
+.nav-link {
+    color: #fff !important;
+}
+
+.nav_logo {
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.blooddonors.in/img/donate1.jpg') no-repeat center center/cover;
+    height: 557px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.search-section {
+    padding: 20px 10px 0px 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 30px auto;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.search-section h2 {
+    color: #333;
+}
+
+.btn-custom {
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+}
+
+.btn-custom:hover {
+    background-color: #d62828;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.5);
+}
+
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+}
+
+footer {
+    padding: 1rem 0;
+    text-align: center;
+
+}
+
+#login_head {
+    background-color: #e63946;
+}
+
+#login_btn {
+    background-color: #e63946;
+    color: #fff;
+}
+
+.login_diolog {
+    max-width: 100%;
+    margin: 0;
+    height: 100%;
+}
+
+.login_content {
+    height: 75%;
+    width: 50%;
+}
+
+.login_body {
+    overflow-y: auto;
+    height: calc(100% - 120px);
+}
+
+.class_msg {
+    background-color: green;
+    color: #fff;
+}
+
+.class_td {
+    background-color: green;
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 25px;
+}
+
+
+@media (max-width: 600px) {
+    .hero {
+        height: 500px;
+    }
+
+    footer {
+        margin-bottom: 33px;
+    }
+
+    .gainerRegistration_btn {
+        margin-top: 15px;
+    }
+
+    .login_content {
+        height: 75%;
+        width: 75%;
+    }
+
+    .modal-content {
+        margin-bottom: 30px;
+    }
+
+    .ul_class_item {
+        display: flex;
+        align-items: center;
+    }
+
+    .sub_hero{
+        margin: 0px 31px;
+    }
+    .gainer_btn{
+        margin-top: 15px;
+    } 
+
+.navbar-toggler:focus{
+    box-shadow: none;
+}
+
+
+}
