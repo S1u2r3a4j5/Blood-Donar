@@ -233,7 +233,7 @@
 
                 @if (session('success'))
                     <div class="alert alert-info class_msg">
-                        {{!! session('success') !!}}
+                        {!! session('success') !!}
                     </div>
                 @endif
 

@@ -234,7 +234,7 @@
                 @if (session('success'))
                 {{--  clas name = class_msg --}}
                     <div class="alert alert-success ">  
-                        {{!! session('success') !!}}
+                        {!! session('success') !!}
                     </div>
                 @endif
 
