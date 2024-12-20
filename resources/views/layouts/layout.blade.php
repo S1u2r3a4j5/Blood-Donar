@@ -10,6 +10,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        .div_name_menu {
+            display: flex;
+            justify-content: space-between;
+            width: 295px;
+            align-items: center;
+        }
+
+        .div_donar_gainer {
+            display: inline-grid;
+        }
+
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 10s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
 
 </head>
 
@@ -21,23 +56,40 @@
             <div class="container">
 
                 @if (Auth::check())
-                    <div>
+                    <div class="d-flex">
                         <a class="navbar-brand" href="#"> <img class="nav_logo"
                                 src="{{ asset('image/blood_logo.png') }}" alt="logo"></a>
-                        <strong>{{ Auth::user()->name }} </strong>
+
+                        <div class="div_name_menu">
+                            <div>
+                                <strong>{{ Auth::user()->name }} </strong>
+                            </div>
+
+                            <div>
+
+
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarLogout">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Logout Form -->
-                    <div class="d-flex">
-                        <div>
-                            <a class="btn btn-danger" href="{{ route('blood-search') }}">Donar </a>
-                            <a class="btn btn-danger" href="{{ route('blood-gainer') }}">Gainer</a>
-                        </div>
+                    <div class="collapse navbar-collapse" id="navbarLogout">
+                        <div class="text-center">
+                            <div class="div_donar_gainer">
+                                <a class="btn btn-danger" href="{{ route('blood-search') }}">Donar Search </a>
+                                <a class="btn btn-danger" href="{{ route('blood-gainer') }}">Gainer Search</a>
+                            </div>
 
-                        <form action="{{ route('logout.user') }}" method="POST" id="logoutForm">
-                            @csrf
-                            <button type="submit" class="btn btn-danger" onclick="disableLink(this, event)">Logout</button>
-                        </form>
+                            <form action="{{ route('logout.user') }}" method="POST" id="logoutForm">
+                                @csrf
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="disableLink(this, event)">Logout</button>
+                            </form>
+                        </div>
                     </div>
                 @else
                     <a class="navbar-brand" href="#"> <img class="nav_logo"
@@ -88,7 +140,6 @@
 
 
 
-
     <main>
         @yield('content')
     </main>
@@ -97,7 +148,10 @@
 
     <!-- Footer -->
     <footer class="text-center py-4 bg-dark text-white">
-        &copy; 2024 Blood Donor. All Rights Reserved.
+        {{-- &copy; 2024 Blood Donor. All Rights Reserved. --}}
+        <marquee behavior="scroll" direction="left">&copy; 2024 Blood Donor. All Rights Reserved. !! Donate Blood Save
+            Lives !! </marquee>
+
     </footer>
 
     <!--Login Modal -->
@@ -116,20 +170,34 @@
                             <label for="email" class="form-label">Email</label>
                             <input type="email" name="email" id="email" class="form-control"
                                 placeholder="Enter your email" required>
+
+                            @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                            @endif
+
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" name="password" id="password" class="form-control"
                                 placeholder="Enter your password" required>
+
+                            @if ($errors->has('password'))
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                            @endif
+
                         </div>
                         <div class="d-grid">
-                            <button type="submit" id="login_btn" class="btn" onclick="disableLoginLink(this, event)">Login</button>
+                            <button type="submit" id="login_btn" class="btn"
+                                onclick="disableLoginLink(this, event)">Login</button>
                         </div>
                     </form>
+
+
+
                 </div>
                 <div class="modal-footer text-center">
-                    <small class="text-muted w-100">Don't have an account? <a href="#"
-                            class="text-primary">Register</a></small>
+                    <small class="text-muted w-100">Don't have an account? <a href="#" class="text-primary"
+                            data-bs-toggle="modal" data-bs-target="#donorRegistrationModal">Register</a></small>
                 </div>
             </div>
         </div>
@@ -398,7 +466,7 @@
                                         value="Male" {{ old('gender') == 'Male' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="male">Male</label>
                                 </div>
-                                <div class="form-check col-md-2 ms-2 mx-4">
+                                <div class="form-check col-md-2 me-sm-3">
                                     <input class="form-check-input" type="radio" name="gender" id="female"
                                         value="Female" {{ old('gender') == 'Female' ? 'checked' : '' }} required>
                                     <label class="form-check-label" for="female">Female</label>
@@ -537,26 +605,40 @@
     <script>
         function disableLoginLink(button, event) {
             event.preventDefault(); // Prevent form submission on the first click
-    
+
             button.style.pointerEvents = "none"; // Disable button click
             button.style.opacity = "0.6"; // Change opacity to show it's disabled
-            button.onclick = function() { return false; }; // Prevent further clicks
-    
+            button.onclick = function() {
+                return false;
+            }; // Prevent further clicks
+
             // Submit the form after disabling the button
             document.getElementById("loginForm").submit();
         }
 
         function disableLink(button, event) {
             event.preventDefault(); // Prevent form submission on the first click
-    
+
             button.style.pointerEvents = "none"; // Disable button click
             button.style.opacity = "0.6"; // Change opacity to show it's disabled
-            button.onclick = function() { return false; }; // Prevent further clicks
-    
+            button.onclick = function() {
+                return false;
+            }; // Prevent further clicks
+
             // Submit the form after disabling the button
             document.getElementById("logoutForm").submit();
         }
     </script>
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+            });
+        </script>
+    @endif
+
 </body>
 
 </html>

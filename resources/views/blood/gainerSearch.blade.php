@@ -232,7 +232,7 @@
                 @endif
 
                 @if (session('success'))
-                    <div class="alert alert-info class_msg">
+                    <div class="alert alert-info">
                         {!! session('success') !!}
                     </div>
                 @endif

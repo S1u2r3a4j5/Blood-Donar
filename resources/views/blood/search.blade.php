@@ -182,14 +182,7 @@
                                 <th>City</th>
                                 <th>State</th>
                                 <th>Country</th>
-                                {{-- <th>Kshetra</th> --}}
-                                {{-- <th>Prant</th> --}}
-                                {{-- <th>Vibhag</th> --}}
-                                {{-- <th>Maha-Nagar</th> --}}
-                                {{-- <th>Bhag</th> --}}
-                                {{-- <th>Nagar</th> --}}
-                                {{-- <th>Shakha</th> --}}
-                                {{-- <th>User Post Name</th> --}}
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -209,19 +202,6 @@
                                     <td>{{ optional($user->address)->city ?? '-' }}</td>
                                     <td>{{ optional($user->address)->state ?? '-' }}</td>
                                     <td>{{ optional($user->address)->country ?? '-' }}</td>
-                                    {{-- <td>{{ optional($user->address)->kshetra ?? '-' }}</td> --}}
-                                    {{-- <td>{{ optional($user->address)->prant ?? '-' }}</td> --}}
-                                    {{-- <td>{{ optional($user->address)->vibhag ?? '-' }}</td> --}}
-                                    {{-- <td>{{ optional($user->address)->maha_nagar ?? '-' }}</td> --}}
-                                    {{-- <td>{{ optional($user->address)->bhag ?? '-' }}</td> --}}
-                                    {{-- <td>{{ optional($user->address)->nagar ?? '-' }}</td> --}}
-                                    {{-- <td>hide</td> --}}
-
-                                    {{-- <td>{{ optional($user->address)->shakha ?? '-' }}</td> --}}
-                                    {{-- <td>hide</td> --}}
-
-                                    {{-- <td>{{ $user->user_post_name }}</td> --}}
-
 
                                 </tr>
                             @endforeach

@@ -16,7 +16,6 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        // User ko authenticate karna
         if (Auth::attempt($credentials)) {
             // Successful login ke baad session regenerate karein
             $request->session()->regenerate();
@@ -24,16 +23,23 @@ class AuthController extends Controller
             return redirect()->route('blood-search')->with('success', 'Logged in successfully!');
         }
 
+        // Password incorrect message ke liye
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return back()->withErrors([
+                'password' => 'The password you entered is incorrect.',
+            ]);
+        }
+
         return back()->withErrors([
             'email' => 'The provided credentials are incorrect.',
-        ]);
+        ])->withInput();
     }
 
- 
+
 
     public function logout(Request $request)
     {
-        Auth::logout(); 
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
