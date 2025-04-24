@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{-- <title>Blood Donor - Search</title> --}}
     <title>@yield('title', 'Test Page')</title>
 
@@ -11,6 +13,12 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
+       
+        .btn-danger {
+            --bs-btn-hover-bg: none;
+            --bs-btn-hover-border-color: none;
+        }
+
         .div_name_menu {
             display: flex;
             justify-content: space-between;
@@ -78,17 +86,23 @@
 
                     <!-- Logout Form -->
                     <div class="collapse navbar-collapse" id="navbarLogout">
-                        <div class="text-center">
+                        <div class="text-center text_center">
                             <div class="div_donar_gainer">
                                 <a class="btn btn-danger" href="{{ route('blood-search') }}">Donar Search </a>
                                 <a class="btn btn-danger" href="{{ route('blood-gainer') }}">Gainer Search</a>
                             </div>
+                            <div>
+                                <!-- <form action="{{ route('logout.user') }}" method="POST" id="logoutForm">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger"
+                                        onclick="logout()">Logout</button>
+                                </form> -->
+                                <!-- Logout Link -->
+                                <!-- <a href="javascript:void(0)" onclick="logout()" class="text-danger">Logout</a> -->
+                                <button onclick="logout()" class="btn btn-danger">Logout</button>
 
-                            <form action="{{ route('logout.user') }}" method="POST" id="logoutForm">
-                                @csrf
-                                <button type="submit" class="btn btn-danger"
-                                    onclick="disableLink(this, event)">Logout</button>
-                            </form>
+
+                            </div>
                         </div>
                     </div>
                 @else
@@ -171,19 +185,12 @@
                             <input type="email" name="email" id="email" class="form-control"
                                 placeholder="Enter your email" required>
 
-                            @if ($errors->has('email'))
-                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                            @endif
-
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" name="password" id="password" class="form-control"
                                 placeholder="Enter your password" required>
 
-                            @if ($errors->has('password'))
-                                <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
 
                         </div>
                         <div class="d-grid">
@@ -191,6 +198,8 @@
                                 onclick="disableLoginLink(this, event)">Login</button>
                         </div>
                     </form>
+
+                    <div id="message"></div>
 
 
 
@@ -314,69 +323,7 @@
                                 placeholder="Enter your country" required>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="kshetra" class="form-label">Kshetra</label>
-                            <input type="text" class="form-control shadow-sm" id="kshetra" name="kshetra"
-                                placeholder="Enter your kshetra name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="prant" class="form-label">Prant</label>
-                            <input type="text" class="form-control shadow-sm" id="prant" name="prant"
-                                placeholder="Enter your prant name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="vibhag" class="form-label">Vibhag</label>
-                            <input type="text" class="form-control shadow-sm" id="vibhag" name="vibhag"
-                                placeholder="Enter your vibhag name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="maha_nagar" class="form-label">Maha-Nagar</label>
-                            <input type="text" class="form-control shadow-sm" id="maha_nagar" name="maha_nagar"
-                                placeholder="Enter your maha-nagar name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="bhag" class="form-label">Bhag</label>
-                            <select class="form-select shadow-sm" id="bhag" name="bhag" required>
-                                <option value="" disabled selected>Select your bhag</option>
-                                <option value="Krishna Bhag">Krishna Bhag</option>
-                                <option value="Balram Bhag">Balram Bhag</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="nagar" class="form-label">Nagar</label>
-                            <select class="form-select shadow-sm" id="nagar" name="nagar" required>
-                                <option value="" disabled selected>Select your nagar</option>
-                                <option value="Yudhishthira Nagar">Yudhishthira Nagar</option>
-                                <option value="Bhim Nagar">Bhim Nagar</option>
-                                <option value="Arjun Nagar">Arjun Nagar</option>
-                                <option value="Nakul Naga">Nakul Nagar</option>
-                                <option value="Sahadev Nagar">Sahadev Nagar</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="shakha" class="form-label">Shakha</label>
-                            <input type="text" class="form-control shadow-sm" id="shakha" name="shakha"
-                                placeholder="Enter your shakha name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="user_post_name" class="form-label">User Post Name</label>
-                            <select class="form-select shadow-sm" id="user_post_name" name="user_post_name" required>
-                                <option value="" disabled selected>Select your nagar</option>
-                                <option value="Kshetra Pracharak">Kshetra Pracharak</option>
-                                <option value="Prant Pracharak">Prant Pracharak</option>
-                                <option value="Vibhag Pracharak">Vibhag Pracharak</option>
-                                <option value="Maha-nagar Pracharak">Maha-nagar Pracharak</option>
-                                <option value="Nagar Pracharak">Nagar Pracharak</option>
-                                <option value="Swayam-sevak">Swayam-sevak</option>
-                            </select>
-                        </div>
+                       
                         <div class="mb-4">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control shadow-sm" id="address" name="address"
@@ -505,89 +452,7 @@
                                 value="{{ old('country') }}" placeholder="Enter your country" required>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="kshetra" class="form-label">Kshetra</label>
-                            <input type="text" class="form-control shadow-sm" id="kshetra" name="kshetra"
-                                value="{{ old('kshetra') }}" placeholder="Enter your kshetra name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="prant" class="form-label">Prant</label>
-                            <input type="text" class="form-control shadow-sm" id="prant" name="prant"
-                                value="{{ old('prant') }}" placeholder="Enter your prant name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="vibhag" class="form-label">Vibhag</label>
-                            <input type="text" class="form-control shadow-sm" id="vibhag" name="vibhag"
-                                value="{{ old('prant') }}" placeholder="Enter your vibhag name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="maha_nagar" class="form-label">Maha-Nagar</label>
-                            <input type="text" class="form-control shadow-sm" id="maha_nagar" name="maha_nagar"
-                                value="{{ old('maha_nagar') }}" placeholder="Enter your maha-nagar name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="bhag" class="form-label">Bhag</label>
-                            <select class="form-select shadow-sm" id="bhag" name="bhag" required>
-                                <option value="" disabled selected>Select your bhag</option>
-                                <option value="Krishna Bhag" {{ old('bhag') == 'Krishna Bhag' ? 'selected' : '' }}>
-                                    Krishna Bhag</option>
-                                <option value="Balram Bhag" {{ old('bhag') == 'Balram Bhag' ? 'selected' : '' }}>
-                                    Balram Bhag</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="nagar" class="form-label">Nagar</label>
-                            <select class="form-select shadow-sm" id="nagar" name="nagar" required>
-                                <option value="" disabled selected>Select your nagar</option>
-                                <option value="Yudhishthira Nagar"
-                                    {{ old('nagar') == 'Yudhishthira Nagar' ? 'selected' : '' }}>Yudhishthira Nagar
-                                </option>
-                                <option value="Bhim Nagar" {{ old('nagar') == 'Bhim Nagar' ? 'selected' : '' }}>Bhim
-                                    Nagar</option>
-                                <option value="Arjun Nagar" {{ old('nagar') == 'Arjun Nagar' ? 'selected' : '' }}>
-                                    Arjun Nagar</option>
-                                <option value="Nakul Naga" {{ old('nagar') == 'Nakul Nagar' ? 'selected' : '' }}>Nakul
-                                    Nagar</option>
-                                <option value="Sahadev Nagar" {{ old('nagar') == 'Sahadev Nagar' ? 'selected' : '' }}>
-                                    Sahadev Nagar</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="shakha" class="form-label">Shakha</label>
-                            <input type="text" class="form-control shadow-sm" id="shakha" name="shakha"
-                                value="{{ old('shakha') }}" placeholder="Enter your shakha name" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="user_post_name" class="form-label">User Post Name</label>
-                            <select class="form-select shadow-sm" id="user_post_name" name="user_post_name" required>
-                                <option value="" disabled selected>Select your nagar</option>
-                                <option value="Kshetra Pracharak"
-                                    {{ old('user_post_name') == 'Kshetra Pracharak' ? 'selected' : '' }}>Kshetra
-                                    Pracharak</option>
-                                <option value="Prant Pracharak"
-                                    {{ old('user_post_name') == 'Prant Pracharak' ? 'selected' : '' }}>Prant Pracharak
-                                </option>
-                                <option value="Vibhag Pracharak"
-                                    {{ old('user_post_name') == 'Vibhag Pracharak' ? 'selected' : '' }}>Vibhag
-                                    Pracharak</option>
-                                <option value="Maha-nagar Pracharak"
-                                    {{ old('user_post_name') == 'Maha-nagar Pracharak' ? 'selected' : '' }}>Maha-nagar
-                                    Pracharak</option>
-                                <option value="Nagar Pracharak"
-                                    {{ old('user_post_name') == 'Nagar Pracharak' ? 'selected' : '' }}>Nagar Pracharak
-                                </option>
-                                <option value="Swayam-sevak"
-                                    {{ old('user_post_name') == 'Swayam-sevak' ? 'selected' : '' }}>Swayam-sevak
-                                </option>
-                            </select>
-                        </div>
+                       
                         <div class="mb-4">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control shadow-sm" id="address" name="address"
@@ -602,7 +467,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+    <!-- <script>
         function disableLoginLink(button, event) {
             event.preventDefault(); // Prevent form submission on the first click
 
@@ -628,16 +493,101 @@
             // Submit the form after disabling the button
             document.getElementById("logoutForm").submit();
         }
-    </script>
+    </script> -->
 
-    @if ($errors->any())
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-                loginModal.show();
+  
+
+    <script>
+        // Login form submit karte waqt
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Form data ko get karein
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Loading state ko enable karein
+            const loginButton = document.getElementById('login_btn');
+            loginButton.disabled = true; // Disable button while loading
+            loginButton.innerText = 'Logging in...'; // Button text ko update karein
+
+            // API ko request bhejein
+            fetch("{{ route('login.dashboard') }}", {
+                // fetch("/api/login", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => {
+                // Agar response successful hai (200 range)
+                if (!response.ok) {
+                    throw new Error('Invalid credentials or something went wrong!');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.access_token) {
+                    // Agar login successful ho to token ko localStorage mein save karein
+                    localStorage.setItem('access_token', data.access_token);
+                    alert(data.message); // Success message show karein
+                    window.location.href = 'api/blood/donor-search-login-user'; // Ya kisi page par redirect karein
+                } else {
+                    // Agar login unsuccessful ho to error message show karein
+                    alert(data.message || 'Login failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            })
+            .finally(() => {
+                // Loading state ko off karein
+                loginButton.disabled = false;
+                loginButton.innerText = 'Login'; // Button text ko restore karein
             });
-        </script>
-    @endif
+        });
+
+        
+
+        // Function to logout
+        function logout() {
+            fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Logged out successfully!') {
+                    alert(data.message); // Show success message
+                    localStorage.removeItem('access_token'); // Clear token from localStorage
+
+                    // Optional: You can also clear cookies or session storage if necessary
+                    sessionStorage.removeItem('access_token');  // If you store any session tokens
+
+                    // Clear any other session-related data here, if needed
+                    window.location.href = '/'; // Redirect to the homepage or login page
+                } else {
+                    alert("Logout failed. Please try again."); // Show error if logout fails
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+
+
+    </script>
 
 </body>
 

@@ -16,13 +16,7 @@ class Address extends Model
         'city',
         'state',
         'country',
-        'kshetra',
-        'prant',
-        'vibhag',
-        'maha_nagar',
-        'bhag',
-        'nagar',
-        'shakha',
+        
     ];
 
 

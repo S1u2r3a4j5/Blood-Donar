@@ -69,12 +69,6 @@ body {
     background-color: #d62828;
 }
 
-.btn-danger {
-    --bs-btn-color: #fff;
-    --bs-btn-bg: none;
-    --bs-btn-border-color: none;
-}
-
 .btn-danger:hover {
     background-color: #c82333;
     box-shadow: 0 4px 10px rgba(220, 53, 69, 0.5);
@@ -167,7 +161,7 @@ footer {
 
     .ul_class_item {
         display: flex;
-        align-items: center;
+        align-items: center !important;
     }
 
     .sub_hero {
@@ -190,5 +184,26 @@ footer {
         font-weight: bold !important;
     }
 
+
+}
+
+@media (min-width: 601px) {
+
+    .ul_class_item {
+        display: flex;
+        align-items: center !important;
+    }
+
+    #navbarLogout {
+        justify-content: right;
+    }
+
+    .div_donar_gainer {
+        display: flex !important;
+    }
+
+    .text_center {
+        display: flex;
+    }
 
 }

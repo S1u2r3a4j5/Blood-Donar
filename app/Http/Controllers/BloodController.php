@@ -122,14 +122,6 @@ class BloodController extends Controller
             'state' => 'required|string',
             'country' => 'required|string',
 
-            'kshetra' => 'nullable|string',
-            'vibhag' => 'nullable|string',
-            'prant' => 'nullable|string',
-
-            'maha_nagar' => 'nullable|string',
-            'bhag' => 'nullable|string',
-            'nagar' => 'nullable|string',
-            'shakha' => 'nullable|string',
             'address' => 'required|string',
         ]);
 
@@ -155,15 +147,6 @@ class BloodController extends Controller
             'state' => $request->state,
             'country' => $request->country,
 
-            'kshetra' => $request->kshetra,
-            'prant' => $request->prant,
-            'vibhag' => $request->vibhag,
-
-            'maha_nagar' => $request->maha_nagar,
-            'bhag' => $request->bhag,
-            'nagar' => $request->nagar,
-            'shakha' => $request->shakha,
-
         ]);
 
         return back()->with('success', 'Donor registered successfully');
@@ -186,14 +169,6 @@ class BloodController extends Controller
             'state' => 'required|string',
             'country' => 'required|string',
 
-            'kshetra' => 'nullable|string',
-            'vibhag' => 'nullable|string',
-            'prant' => 'nullable|string',
-
-            'maha_nagar' => 'nullable|string',
-            'bhag' => 'nullable|string',
-            'nagar' => 'nullable|string',
-            'shakha' => 'nullable|string',
             'address' => 'required|string',
         ]);
 
@@ -219,15 +194,6 @@ class BloodController extends Controller
             'city' => $request->city,
             'state' => $request->state,
             'country' => $request->country,
-
-            'kshetra' => $request->kshetra,
-            'prant' => $request->prant,
-            'vibhag' => $request->vibhag,
-
-            'maha_nagar' => $request->maha_nagar,
-            'bhag' => $request->bhag,
-            'nagar' => $request->nagar,
-            'shakha' => $request->shakha,
 
         ]);
 
@@ -392,8 +358,5 @@ class BloodController extends Controller
         ]);
     }
 
-    public function test()
-    {
-        return view('layouts.layout');
-    }
+
 }
